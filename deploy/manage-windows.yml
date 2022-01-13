@@ -1,0 +1,50 @@
+---
+
+- name: "Connect to Windows server"
+  hosts: win
+  tasks:
+    - name: "Print host info"
+      debug: 
+        var: ansible_facts
+    # Remove Default Web Site and the standard port 80 binding
+    - name: "Get infos on Default Web Site"
+      win_iis_website:
+        name: "Default Web Site"
+      register: default_website
+
+    - name: Display infos on default website
+      debug:
+        var: default_website
+
+    - name: "Configure website"
+      win_iis_website:
+        name: Maincare
+        state: started
+        port: 80
+        ip: 127.0.0.1
+        hostname: maincare.com
+        application_pool: acme
+        physical_path: C:\sites\maincare
+        parameters: logfile.directory:C:\site\logs
+      register: website
+
+    # Remove Default Web Site and the standard port 80 binding
+    - name: Remove Default Web Site
+      win_iis_website:
+        name: "Default Web Site"
+        state: absent
+
+    - name: Import a certificate
+      ansible.windows.win_certificate_store:
+        path: C:\Temp\cert.pem
+        state: present
+      register: imported_certificate
+
+    - name: Add a HTTPS binding
+      win_iis_webbinding:
+        name: Maincare
+        protocol: https
+        port: 443
+        ip: 127.0.0.1
+        certificate_hash: "{{ imported_certificate.thumbprint }}"
+        state: present

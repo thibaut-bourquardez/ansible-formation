@@ -1,0 +1,13 @@
+---
+
+- name: "Manage hosts"
+  hosts: db
+  tasks:
+    - name: "Manage hosts task"
+      become: yes
+      manage_hosts: 
+        entries: 
+          - ip: "10.33.21.36"
+            names: ["jenkins36"]
+          - ip: "10.0.2.54" 
+            names: ["http1.dev"]

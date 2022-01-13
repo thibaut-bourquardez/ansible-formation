@@ -1,0 +1,15 @@
+[apache]
+http1
+[db]
+bdd1
+
+[win]
+windows
+
+[win:vars]
+ansible_winrm_server_cert_validation=ignore
+ansible_host=34.77.140.45
+ansible_user=csiremy_pro
+ansible_password="uhHw-{)%LRPu${>"
+ansible_connection=winrm
+ansible_winrm_transport=ntlm

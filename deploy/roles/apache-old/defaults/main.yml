@@ -1,0 +1,25 @@
+apache_packages_centos:
+  '7': 
+    php:
+      - php
+      - php-xml
+      - php-mbstring
+      - php-gd
+      - php-intl
+      - php-mysql
+      - php-mcrypt
+    remi_release: https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+  '8':
+    php:
+      - php
+      - php-xml
+      - php-mbstring
+      - php-gd
+      - php-intl
+      - php-json
+      - php-mysqlnd
+      - php70-php-mcrypt
+    remi_release: "https://rpms.remirepo.net/enterprise/remi-release-8.rpm"
+
+apache_php_packages: "{{ apache_packages_centos[ansible_facts['distribution_major_version']].php }}"
+apache_php_remi_release: "{{ apache_packages_centos[ansible_facts['distribution_major_version']].remi_release }}"

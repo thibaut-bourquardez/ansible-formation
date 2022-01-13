@@ -1,0 +1,9 @@
+mariadb_packages_centos:
+  '7': 
+    - mariadb-server
+    - python-mysql
+  '8':
+    - mariadb-server
+    - python3-PyMySQL
+
+mariadb_packages: "{{ mariadb_packages_centos[ansible_facts['distribution_major_version']] }}"

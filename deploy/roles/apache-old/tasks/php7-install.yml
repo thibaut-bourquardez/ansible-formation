@@ -1,0 +1,27 @@
+---
+- name: "epel activation"
+  yum:
+    name: "epel-release"
+    state: present
+
+- name: Import remi GPG key.
+  rpm_key:
+    key: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+    state: present
+
+- name: Import remi GPG key 2018.
+  rpm_key:
+    key: http://rpms.remirepo.net/RPM-GPG-KEY-remi2018
+    state: present
+
+- name: "remi repo activation"
+  yum:
+    name: "{{apache_php_remi_release}}"
+    state: present
+
+- name: "install php70 packages"
+  yum:
+    name: "{{apache_php_packages}}"
+    state: latest
+    enablerepo: "remi-php70"
+  notify: [ "apache restart" ]

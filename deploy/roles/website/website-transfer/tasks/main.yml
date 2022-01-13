@@ -1,0 +1,19 @@
+---
+- name: "website directory rights"
+  become: yes
+  become_user: "root"
+  file:
+    path: "{{website_directory}}"
+    owner: "apache"
+    group: "apache"
+    mode: '0755'
+
+- name: "copy website"
+  become: yes
+  become_user: "apache"
+  copy:
+    src: "/tmp/website/ansible-files/"
+    dest: "{{website_directory}}/"
+    owner: "apache"
+    group: "apache"
+    remote_src: no

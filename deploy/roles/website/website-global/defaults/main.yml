@@ -1,0 +1,5 @@
+---
+
+website_repo_url: "https://gitlab.com/qualibre-info-formations/public/misc-sources.git"
+
+website_directory: "/var/www/html/"

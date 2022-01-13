@@ -1,0 +1,46 @@
+---
+
+- name: "website delete tmp directory"
+  file:
+    path: "/tmp/website"
+    state: absent
+
+- name: "website tmp directory"
+  file:
+    path: "/tmp/website"
+    state: directory
+
+- name: "checkout website"
+  git:
+    repo: "{{website_repo_url}}"
+    dest: "/tmp/website"
+    version: "master"
+
+- name: "website tmp directory rights"
+  file:
+    path: "/tmp/website"
+    owner: "apache"
+    group: "apache"
+    mode: '0755'
+
+- name: "website directory rights"
+  become: yes
+  become_user: "root"
+  file:
+    path: "{{website_directory}}"
+    owner: "apache"
+    group: "apache"
+    mode: '0755'
+
+- name: "copy website"
+  become: yes
+  become_user: "apache"
+  copy:
+    src: "/tmp/website/ansible-files/"
+    dest: "{{website_directory}}"
+    remote_src: yes
+
+- name: "website delete tmp directory"
+  file:
+    path: "/tmp/website"
+    state: absent

@@ -1,0 +1,16 @@
+---
+- name: "MediaWiki db configuration"
+  hosts: db
+  become: yes
+  gather_facts: no
+  tags: [ "mariadb", "mysql" ]
+  roles:
+    - role: "mediawiki/confdb"
+
+- name: "MediaWiki apache configuration"
+  hosts: apache
+  become: yes
+  gather_facts: no
+  tags: "apache"
+  roles:
+    - role: "mediawiki/confapache"

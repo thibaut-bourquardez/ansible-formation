@@ -1,0 +1,18 @@
+---
+- name: 'Install role apache'
+  hosts: "localhost"
+  tasks:
+    - name: "ansible-galaxy"
+      community.general.ansible_galaxy_install:
+        type: both
+        requirements_file: requirements.yml
+
+- name: "Installation apache"
+  become: yes
+  hosts: apache
+  tasks:
+    - name: "execute apache"
+      include_role:
+        name: apache2
+      vars:
+        php_install: yes

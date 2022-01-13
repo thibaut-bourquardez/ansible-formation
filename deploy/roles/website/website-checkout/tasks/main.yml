@@ -1,0 +1,17 @@
+---
+
+- name: "website delete tmp directory"
+  file:
+    path: "/tmp/website"
+    state: absent
+
+- name: "website tmp directory"
+  file:
+    path: "/tmp/website"
+    state: directory
+
+- name: "checkout website"
+  git:
+    repo: "{{website_repo_url}}"
+    dest: "/tmp/website"
+    version: "master"

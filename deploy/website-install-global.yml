@@ -1,0 +1,8 @@
+---
+
+- name: "Website install"
+  hosts: apache
+  become: yes
+  tags: "apache"
+  roles:
+    - role: website/website-global

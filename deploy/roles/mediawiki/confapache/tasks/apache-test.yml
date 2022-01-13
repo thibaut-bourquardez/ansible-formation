@@ -1,0 +1,18 @@
+---
+
+- name: "Check URL"
+  uri:
+    url: "https://{{ user.slug }}-http2.qualibre-formations.fr/{{mediawiki_name}}"
+    return_content: yes
+    status_code:
+      - 200
+  register: webpage
+
+- name: "Print content"
+  debug:
+    msg: "{{webpage}}"
+
+- name: "Check URL content"
+  assert:
+    that:
+      - webpage.content.find('MediaWiki a été installé.') >= 0

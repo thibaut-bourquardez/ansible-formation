@@ -1,0 +1,12 @@
+---
+
+- name: "mariadb-server installation"
+  yum:
+    name: "{{mariadb_packages}}"
+    state: "installed"
+
+- name: "start mariadb service"
+  service:
+    name: "mariadb"
+    state: "started"
+    enabled: yes

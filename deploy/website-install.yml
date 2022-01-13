@@ -1,0 +1,13 @@
+---
+
+- name: "Website checkout"
+  hosts: localhost
+  roles:
+    - role: website/website-checkout
+
+- name: "Website copy"
+  hosts: apache
+  become: yes
+  tags: "apache"
+  roles:
+    - role: website/website-transfer

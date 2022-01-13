@@ -1,0 +1,30 @@
+user:
+  slug: thibaut-bourquardez
+
+
+# Mediawiki administrator name and password
+mediawiki_admin_user: "admin"
+mediawiki_admin_password: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  37653264353061396639303362376137626333353835663163653361326336623838663362343832
+  3830353461326133663632363638636532353561633730390a356333333832626466306639353735
+  35613466646630343935383135376236343830356534653938623865326437383139336664636563
+  6662643332346164640a666639376663376664623333656531636131323463353038353766623166
+  6334
+
+
+# Mediawiki name and title
+mediawiki_name: "mediawiki"
+mediawiki_title: "ELS"
+
+# Mediawiki install directory
+mediawiki_directory: "/var/www/html/{{mediawiki_name}}"
+
+# Maintenance folder for Mediawiki
+mediawiki_maintenance_directory: "{{mediawiki_directory}}/maintenance"
+
+# Defines the first mariadb host
+mediawiki_db_host: "{{groups.db.0}}"
+
+# Mediawiki URL
+mediawiki_archive_url: "https://releases.wikimedia.org/mediawiki/1.34/mediawiki-1.34.4.tar.gz"
